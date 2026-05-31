@@ -1,0 +1,1081 @@
+cat > /mnt/user-data/outputs/bess-auto.html << 'ENDOFFILE'
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Besschine Auto – Pièces Automobiles</title>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Poppins:wght@300;400;500;600;700&family=Exo+2:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--bd:#0a1628;--b:#1a3a6b;--bm:#1e5dab;--bl:#2e86de;--bb:#4ea8de;--bp:#e8f0fc;--bvp:#f0f5ff;--w:#fff;--g:#f5f7fa;--g2:#e2e8f0;--tx:#1a2340;--tl:#5a6a8a;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--w);color:var(--tx);overflow-x:hidden;}
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:var(--bd);box-shadow:0 2px 16px rgba(0,0,0,0.3);}
+.logo{font-family:'Russo One',sans-serif;font-size:1.3rem;color:#fff;cursor:pointer;letter-spacing:1px;}
+.logo span{color:var(--bb);}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,0.8);font-size:0.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:7px 12px;border-radius:4px;cursor:pointer;transition:all .2s;}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,0.1);}
+.nav-order{background:var(--bl)!important;color:#fff!important;}
+.nav-admin{border:1px solid rgba(255,255,255,0.2)!important;color:rgba(255,255,255,0.5)!important;font-size:0.7rem!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--bd);padding:14px 20px;z-index:199;border-top:1px solid rgba(255,255,255,0.08);flex-direction:column;gap:4px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:rgba(255,255,255,0.85);font-size:0.88rem;font-weight:600;padding:12px 14px;border-radius:6px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;}
+.mobile-menu a:hover{background:rgba(255,255,255,0.08);}
+
+/* HERO */
+.hero{min-height:100vh;background:linear-gradient(135deg,var(--bd) 0%,var(--b) 55%,var(--bm) 100%);display:flex;align-items:center;padding:100px 40px 60px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-160px;right:-160px;width:580px;height:580px;border-radius:50%;background:radial-gradient(circle,rgba(46,134,222,0.18),transparent 70%);}
+.hero-content{position:relative;z-index:2;max-width:640px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(78,168,222,0.18);border:1px solid rgba(78,168,222,0.35);color:var(--bb);font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:24px;}
+.hero h1{font-family:'Russo One',sans-serif;font-size:clamp(2rem,5vw,3.6rem);color:#fff;line-height:1.15;margin-bottom:20px;}
+.hero h1 span{color:var(--bb);}
+.hero p{font-size:0.98rem;font-weight:300;color:rgba(255,255,255,0.72);line-height:1.8;margin-bottom:36px;max-width:520px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-p{background:var(--bl);color:#fff;padding:13px 30px;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;transition:all .25s;}
+.btn-p:hover{background:var(--bb);transform:translateY(-2px);}
+.btn-o{background:transparent;color:#fff;padding:13px 30px;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:2px solid rgba(255,255,255,0.35);cursor:pointer;transition:all .25s;}
+.btn-o:hover{border-color:#fff;background:rgba(255,255,255,0.08);}
+
+/* STRIP */
+.strip{background:var(--bm);padding:14px 40px;display:flex;gap:36px;justify-content:center;flex-wrap:wrap;}
+.strip-item{color:rgba(255,255,255,0.9);display:flex;align-items:center;gap:7px;font-size:0.8rem;font-weight:600;}
+
+/* SECTIONS */
+.section{padding:80px 40px;}
+.slabel{font-size:0.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--bl);margin-bottom:8px;}
+.stitle{font-family:'Russo One',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--tx);margin-bottom:12px;line-height:1.2;}
+.ssub{font-size:0.92rem;color:var(--tl);line-height:1.75;max-width:500px;margin-bottom:44px;}
+
+/* CATEGORIES */
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.cat-card{background:#fff;border:1px solid var(--g2);border-radius:12px;padding:28px 22px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--bm),var(--bb));transform:scaleX(0);transition:transform .3s;}
+.cat-card:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(26,58,107,0.1);border-color:var(--bp);}
+.cat-card:hover::before{transform:scaleX(1);}
+.cat-icon{width:50px;height:50px;background:var(--bvp);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin-bottom:15px;}
+.cat-card h3{font-family:'Exo 2',sans-serif;font-size:0.95rem;font-weight:700;color:var(--tx);margin-bottom:5px;}
+.cat-card p{font-size:0.78rem;color:var(--tl);line-height:1.6;}
+.cat-link{margin-top:13px;color:var(--bl);font-size:0.78rem;font-weight:700;display:inline-flex;align-items:center;gap:4px;transition:gap .2s;}
+.cat-card:hover .cat-link{gap:8px;}
+
+/* WHY */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px;}
+.why-card{background:#fff;border-radius:12px;padding:26px 20px;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform .2s;}
+.why-card:hover{transform:translateY(-4px);}
+.why-icon{font-size:1.8rem;margin-bottom:12px;}
+.why-card h3{font-family:'Exo 2',sans-serif;font-size:0.92rem;font-weight:700;color:var(--tx);margin-bottom:7px;}
+.why-card p{font-size:0.8rem;color:var(--tl);line-height:1.65;}
+
+/* CONTACT */
+.contact-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:800px;margin-bottom:32px;}
+.cii{display:flex;gap:14px;align-items:flex-start;background:#fff;padding:18px;border-radius:12px;border:1px solid var(--g2);}
+.cico{width:46px;height:46px;border-radius:10px;background:var(--bvp);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.cii h4{font-family:'Exo 2',sans-serif;font-size:0.88rem;font-weight:700;color:var(--tx);margin-bottom:3px;}
+.cii p{font-size:0.82rem;color:var(--tl);line-height:1.55;}
+.cii a{color:var(--bl);text-decoration:none;font-weight:600;}
+.contact-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.cbtn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:0.88rem;font-weight:700;text-decoration:none;cursor:pointer;transition:all .2s;}
+.cbtn-email{background:var(--bl);color:#fff;}
+.cbtn-email:hover{background:var(--bb);}
+.cbtn-wa{background:#25D366;color:#fff;}
+.cbtn-wa:hover{background:#1da851;}
+
+/* FOOTER */
+footer{background:var(--bd);color:rgba(255,255,255,0.5);padding:50px 40px 24px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px;margin-bottom:40px;}
+.flogo{font-family:'Russo One',sans-serif;font-size:1.2rem;color:#fff;margin-bottom:10px;display:block;letter-spacing:1px;}
+.flogo span{color:var(--bb);}
+.footer-top p{font-size:0.82rem;line-height:1.7;}
+footer h4{font-family:'Exo 2',sans-serif;color:#fff;font-size:0.85rem;font-weight:700;margin-bottom:14px;}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+footer ul a{text-decoration:none;color:rgba(255,255,255,0.48);font-size:0.82rem;transition:color .2s;cursor:pointer;}
+footer ul a:hover{color:var(--bb);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.07);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-bottom p{font-size:0.78rem;}
+.footer-bottom span{color:var(--bb);}
+
+/* PAGE HEADER */
+.page-header{background:linear-gradient(135deg,var(--bd),var(--b));padding:90px 40px 42px;position:relative;overflow:hidden;}
+.page-header::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:rgba(46,134,222,0.13);}
+.page-header h1{font-family:'Russo One',sans-serif;font-size:1.8rem;color:#fff;margin-bottom:7px;position:relative;}
+.page-header p{color:rgba(255,255,255,0.6);font-size:0.9rem;position:relative;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:#fff;padding:8px 16px;border-radius:4px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:0.8rem;font-weight:600;transition:background .2s;margin-bottom:18px;position:relative;}
+.back-btn:hover{background:rgba(255,255,255,0.15);}
+
+/* CATALOGUE */
+.filters-bar{background:#fff;padding:13px 40px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--g2);position:sticky;top:64px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.filter-btn{background:var(--g);border:1.5px solid var(--g2);color:var(--tx);padding:6px 14px;border-radius:20px;font-family:'Poppins',sans-serif;font-size:0.76rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.filter-btn:hover,.filter-btn.active{background:var(--bl);color:#fff;border-color:var(--bl);}
+.filter-search{margin-left:auto;}
+.filter-search input{padding:7px 14px;border:1.5px solid var(--g2);border-radius:20px;background:var(--g);font-family:'Poppins',sans-serif;font-size:0.8rem;outline:none;width:200px;transition:border-color .2s;}
+.filter-search input:focus{border-color:var(--bl);}
+.catalogue-body{padding:32px 40px;}
+.catalogue-count{font-size:0.8rem;color:var(--tl);margin-bottom:20px;}
+.catalogue-count strong{color:var(--bl);font-weight:700;}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;}
+.product-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform .25s,box-shadow .25s;border:1px solid var(--g2);}
+.product-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(26,58,107,0.11);}
+.product-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,var(--bvp),var(--bp));}
+.product-img img{width:100%;height:100%;object-fit:cover;}
+.product-body{padding:16px;}
+.product-cat{font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--bl);margin-bottom:4px;}
+.product-body h3{font-family:'Exo 2',sans-serif;font-size:0.9rem;font-weight:700;color:var(--tx);margin-bottom:4px;}
+.product-body p{font-size:0.78rem;color:var(--tl);line-height:1.5;margin-bottom:10px;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;}
+.product-price{font-family:'Exo 2',sans-serif;font-size:1rem;font-weight:900;color:var(--b);}
+.product-btn{background:var(--bl);color:#fff;border:none;padding:6px 12px;border-radius:4px;font-family:'Poppins',sans-serif;font-size:0.74rem;font-weight:700;cursor:pointer;transition:background .2s;}
+.product-btn:hover{background:var(--bb);}
+.badge-new{background:#e74c3c;color:#fff;font-size:0.6rem;font-weight:700;padding:2px 6px;border-radius:2px;letter-spacing:1px;margin-left:4px;}
+.no-results{text-align:center;padding:70px 20px;color:var(--tl);grid-column:1/-1;}
+.no-results .big{font-size:3rem;margin-bottom:12px;}
+
+/* MARQUES */
+.brands-section{padding:32px 40px;}
+.brands-cat-label{font-family:'Exo 2',sans-serif;font-size:0.76rem;font-weight:700;color:var(--tl);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:7px;border-bottom:1px solid var(--g2);}
+.brands-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
+.brand-card{background:#fff;border:1.5px solid var(--g2);border-radius:12px;padding:20px 14px;cursor:pointer;transition:all .2s;text-align:center;}
+.brand-card:hover{border-color:var(--bl);box-shadow:0 8px 22px rgba(26,58,107,0.11);transform:translateY(-3px);}
+.brand-other{border-style:dashed;border-color:var(--bb)!important;background:var(--bvp)!important;}
+.brand-badge{width:64px;height:64px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Exo 2',sans-serif;font-size:0.95rem;font-weight:900;color:#fff;margin:0 auto 10px;box-shadow:0 3px 10px rgba(0,0,0,0.2);letter-spacing:1px;}
+.brand-card h3{font-family:'Exo 2',sans-serif;font-size:0.85rem;font-weight:700;color:var(--tx);margin-bottom:3px;}
+.brand-card p{font-size:0.7rem;color:var(--tl);line-height:1.4;margin-bottom:8px;}
+.brand-select-lbl{font-size:0.7rem;color:var(--bl);font-weight:700;}
+
+/* COMMANDE */
+.order-container{max-width:640px;margin:0 auto;padding:32px 40px 56px;}
+.order-box{background:#fff;border-radius:14px;padding:36px;box-shadow:0 4px 22px rgba(0,0,0,0.07);}
+.order-box h2{font-family:'Russo One',sans-serif;font-size:1.3rem;color:var(--tx);margin-bottom:5px;}
+.order-box .osub{font-size:0.82rem;color:var(--tl);margin-bottom:24px;line-height:1.6;}
+.order-brand-info{display:flex;align-items:center;gap:12px;background:var(--bvp);border:1.5px solid var(--bp);border-radius:8px;padding:12px 15px;margin-bottom:20px;}
+.obi-ico{font-size:1.8rem;}
+.obi-info strong{font-family:'Exo 2',sans-serif;font-size:0.92rem;font-weight:700;color:var(--b);}
+.obi-info span{font-size:0.76rem;color:var(--tl);display:block;}
+.oform{display:flex;flex-direction:column;gap:12px;}
+.ofg{display:flex;flex-direction:column;}
+.ofg label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx);margin-bottom:5px;}
+.ofg input,.ofg select,.ofg textarea{width:100%;padding:11px 14px;border:1.5px solid var(--g2);border-radius:6px;background:var(--g);font-family:'Poppins',sans-serif;font-size:0.85rem;color:var(--tx);outline:none;transition:border-color .2s;}
+.ofg input:focus,.ofg select:focus,.ofg textarea:focus{border-color:var(--bl);background:#fff;}
+.ofg textarea{resize:vertical;min-height:80px;}
+.ofg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.other-brand-field{display:none;}
+.other-brand-field.visible{display:flex;}
+.submit-order{background:linear-gradient(135deg,var(--bm),var(--bb));color:#fff;border:none;padding:14px;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;transition:opacity .2s,transform .2s;margin-top:6px;}
+.submit-order:hover{opacity:0.88;transform:translateY(-2px);}
+.order-success{text-align:center;padding:36px 16px;display:none;}
+.order-success .big{font-size:3.5rem;margin-bottom:12px;}
+.order-success h3{font-family:'Russo One',sans-serif;font-size:1.2rem;color:var(--tx);margin-bottom:7px;}
+.order-success p{font-size:0.85rem;color:var(--tl);margin-bottom:20px;line-height:1.6;}
+.steps-box{background:var(--bvp);border-radius:10px;padding:16px;margin:14px 0;text-align:left;}
+.steps-box .step{display:flex;align-items:flex-start;gap:10px;font-size:0.82rem;color:var(--tx);margin-bottom:8px;}
+.steps-box .step:last-child{margin-bottom:0;}
+
+/* LOGIN */
+#page-login{background:var(--bd);align-items:center;justify-content:center;}
+#page-login.active{display:flex;}
+.login-box{background:#fff;border-radius:14px;padding:44px 36px;width:340px;box-shadow:0 28px 70px rgba(0,0,0,0.38);}
+.login-logo{font-family:'Russo One',sans-serif;font-size:1.3rem;color:var(--b);margin-bottom:4px;display:block;}
+.login-logo span{color:var(--bb);}
+.login-box .lsub{font-size:0.8rem;color:var(--tl);margin-bottom:24px;}
+.login-box label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx);display:block;margin-bottom:5px;}
+.login-box input{width:100%;padding:11px 14px;border:1.5px solid var(--g2);border-radius:6px;background:var(--g);font-family:'Poppins',sans-serif;font-size:0.88rem;outline:none;margin-bottom:13px;transition:border-color .2s;}
+.login-box input:focus{border-color:var(--bl);}
+.login-box button{width:100%;background:var(--bl);color:#fff;border:none;padding:13px;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;transition:background .2s;}
+.login-box button:hover{background:var(--bb);}
+.login-error{color:#e05a5a;font-size:0.8rem;margin-top:-6px;margin-bottom:12px;display:none;}
+
+/* ADMIN */
+#page-admin{background:#f0f2f8;display:none;}
+#page-admin.active{display:block;}
+.admin-nav{background:var(--bd);padding:0 36px;height:62px;display:flex;align-items:center;justify-content:space-between;}
+.admin-body{padding:28px 34px;}
+.admin-title{font-family:'Russo One',sans-serif;font-size:1.6rem;color:var(--tx);margin-bottom:3px;}
+.admin-sub{font-size:0.82rem;color:var(--tl);margin-bottom:24px;}
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+.astat{background:#fff;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.astat .num{font-family:'Russo One',sans-serif;font-size:1.6rem;color:var(--bl);}
+.astat .num.red{color:#e74c3c;}
+.astat .lbl{font-size:0.7rem;color:var(--tl);text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.admin-tabs{display:flex;gap:5px;margin-bottom:22px;background:#fff;border-radius:10px;padding:5px;box-shadow:0 2px 8px rgba(0,0,0,0.04);width:fit-content;}
+.admin-tab{padding:9px 18px;border-radius:7px;border:none;font-family:'Exo 2',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all .2s;background:transparent;color:var(--tl);}
+.admin-tab.active{background:var(--bl);color:#fff;box-shadow:0 3px 10px rgba(46,134,222,0.28);}
+.tab-badge{background:#e74c3c;color:#fff;font-size:0.6rem;padding:1px 6px;border-radius:10px;margin-left:5px;font-weight:700;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.admin-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:20px;}
+.acard{background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
+.acard h2{font-family:'Exo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--tx);margin-bottom:3px;}
+.acard .asub{font-size:0.76rem;color:var(--tl);margin-bottom:18px;}
+.afg{margin-bottom:12px;}
+.afg label{font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx);display:block;margin-bottom:4px;}
+.afg input,.afg select,.afg textarea{width:100%;padding:9px 12px;border:1.5px solid var(--g2);border-radius:6px;background:var(--g);font-family:'Poppins',sans-serif;font-size:0.83rem;outline:none;transition:border-color .2s;}
+.afg input:focus,.afg select:focus{border-color:var(--bl);}
+.afg textarea{resize:vertical;min-height:66px;}
+.afg-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.abtn{background:var(--bl);color:#fff;border:none;padding:10px 20px;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:background .2s;}
+.abtn:hover{background:var(--bb);}
+.asuccess{background:#d1f0e0;color:#1a6640;padding:9px 13px;border-radius:6px;font-size:0.78rem;margin-top:9px;display:none;}
+.atable{width:100%;border-collapse:collapse;font-size:0.8rem;}
+.atable th{background:#f0f2f8;padding:8px 11px;text-align:left;font-weight:700;color:var(--tl);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.5px;}
+.atable td{padding:10px 11px;border-bottom:1px solid var(--g2);vertical-align:middle;}
+.atable tr:last-child td{border-bottom:none;}
+.atable tr:hover td{background:#fafbff;}
+.tcat{font-size:0.64rem;background:var(--bp);color:var(--b);padding:2px 7px;border-radius:10px;font-weight:700;}
+.tprice{font-weight:700;color:var(--bl);}
+.tdel{background:#fee2e2;color:#dc2626;border:none;padding:5px 9px;border-radius:4px;cursor:pointer;font-size:0.72rem;font-weight:700;}
+.tdel:hover{background:#fca5a5;}
+.empty-t{text-align:center;padding:30px;color:var(--tl);font-style:italic;font-size:0.82rem;}
+
+/* PHOTO UPLOAD */
+.photo-upload-zone{border:2px dashed var(--g2);border-radius:8px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;background:var(--g);position:relative;}
+.photo-upload-zone:hover{border-color:var(--bl);background:var(--bvp);}
+.photo-preview{display:none;position:relative;margin-top:8px;}
+.photo-preview img{width:100%;height:130px;object-fit:cover;border-radius:6px;border:1px solid var(--g2);}
+.photo-preview .rm-photo{position:absolute;top:5px;right:5px;background:rgba(0,0,0,0.55);color:#fff;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;justify-content:center;}
+
+/* COMMANDES ADMIN */
+.orders-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.orders-toolbar h2{font-family:'Exo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--tx);}
+.ofilters{display:flex;gap:6px;flex-wrap:wrap;}
+.ofilter{padding:5px 12px;border-radius:16px;border:1.5px solid var(--g2);background:var(--g);font-family:'Poppins',sans-serif;font-size:0.73rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.ofilter.active,.ofilter:hover{background:var(--bl);color:#fff;border-color:var(--bl);}
+.clr-btn{background:#fee2e2;color:#dc2626;border:none;padding:6px 12px;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:0.73rem;font-weight:700;cursor:pointer;}
+.orders-list{display:flex;flex-direction:column;gap:12px;}
+.order-card{background:#fff;border-radius:10px;border:1.5px solid var(--g2);overflow:hidden;}
+.oc-head{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;background:var(--bvp);border-bottom:1px solid var(--g2);flex-wrap:wrap;gap:6px;}
+.oc-id{font-family:'Exo 2',sans-serif;font-size:0.76rem;font-weight:700;color:var(--b);}
+.oc-date{font-size:0.7rem;color:var(--tl);}
+.oc-status{font-size:0.66rem;font-weight:700;padding:3px 8px;border-radius:10px;}
+.s-new{background:#fef3c7;color:#92400e;}
+.s-done{background:#d1fae5;color:#065f46;}
+.oc-body{padding:13px 15px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;}
+.ocf .lbl{font-size:0.63rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tl);margin-bottom:2px;}
+.ocf .val{font-size:0.8rem;color:var(--tx);font-weight:500;word-break:break-word;}
+.oc-foot{padding:10px 15px;border-top:1px solid var(--g2);display:flex;gap:7px;}
+.btn-treat{background:var(--bl);color:#fff;border:none;padding:6px 12px;border-radius:5px;font-family:'Exo 2',sans-serif;font-size:0.73rem;font-weight:700;cursor:pointer;}
+.btn-treat:hover{background:var(--bb);}
+.btn-del-o{background:#fee2e2;color:#dc2626;border:none;padding:6px 11px;border-radius:5px;font-size:0.73rem;font-weight:700;cursor:pointer;}
+.no-orders{text-align:center;padding:50px 20px;color:var(--tl);}
+.logout-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.6);padding:6px 13px;border-radius:4px;font-family:'Poppins',sans-serif;font-size:0.74rem;cursor:pointer;}
+.admin-badge{background:var(--bm);color:#fff;font-size:0.66rem;padding:3px 11px;border-radius:10px;font-weight:700;}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:820px){
+  nav{padding:0 16px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero{padding:84px 18px 44px;}
+  .section{padding:56px 18px;}
+  .catalogue-body,.brands-section,.order-container,.admin-body{padding:24px 18px;}
+  .filters-bar{padding:12px 18px;}
+  .admin-stats{grid-template-columns:1fr 1fr;}
+  .admin-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr;gap:28px;}
+  footer{padding:44px 18px 20px;}
+  .strip{padding:12px 18px;gap:16px;}
+  .ofg-row,.afg-row{grid-template-columns:1fr;}
+  .oc-body{grid-template-columns:1fr 1fr;}
+  .page-header{padding:84px 18px 34px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ ACCUEIL ══ -->
+<div id="page-home" class="page active">
+<nav>
+  <div class="logo" onclick="showPage('page-home')">Besschine <span>Auto</span></div>
+  <div class="nav-links">
+    <a onclick="showPage('page-catalogue');initCatalogue()">🛒 Catalogue</a>
+    <a onclick="showPage('page-order-direct')" class="nav-order">📋 Commander</a>
+    <a onclick="scrollContact()">Contact</a>
+    <a onclick="showPage('page-login')" class="nav-admin">🔐 Admin</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="showPage('page-catalogue');initCatalogue();closeMenu()">🛒 Catalogue</a>
+  <a onclick="showPage('page-order-direct');closeMenu()" style="background:var(--bl);color:#fff;">📋 Commander</a>
+  <a onclick="scrollContact();closeMenu()">📞 Contact</a>
+  <a onclick="showPage('page-login');closeMenu()">🔐 Admin</a>
+</div>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🔧 Spécialiste Pièces Automobiles</div>
+    <h1>Des pièces <span>de qualité</span> pour votre véhicule</h1>
+    <p>Besschine Auto vous propose une large gamme de pièces automobiles pour toutes les marques chinoises. Commandez facilement, livraison entre 10 et 15 jours.</p>
+    <div class="hero-btns">
+      <button class="btn-p" onclick="showPage('page-catalogue');initCatalogue()">Voir le catalogue</button>
+      <button class="btn-o" onclick="showPage('page-order-direct')">Commander une pièce</button>
+    </div>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="strip-item">🚚 Livraison 10–15 jours</div>
+  <div class="strip-item">✅ Pièces certifiées</div>
+  <div class="strip-item">🔄 Retours faciles</div>
+  <div class="strip-item">💬 Conseils experts</div>
+  <div class="strip-item">💰 Meilleurs prix</div>
+</div>
+
+<div class="section" style="background:#fff;">
+  <div class="slabel">Ce que nous proposons</div>
+  <h2 class="stitle">Nos catégories de pièces</h2>
+  <p class="ssub">Cliquez sur une catégorie pour choisir votre marque et passer commande.</p>
+  <div class="cats-grid reveal" id="homeCatsGrid"></div>
+</div>
+
+<div class="section" style="background:var(--bvp);">
+  <div class="slabel">Pourquoi nous</div>
+  <h2 class="stitle">L'expertise Besschine Auto</h2>
+  <p class="ssub">Qualité, rapidité et expertise à votre service.</p>
+  <div class="why-grid reveal">
+    <div class="why-card"><div class="why-icon">🏆</div><h3>Qualité garantie</h3><p>Pièces sélectionnées et vérifiées avant expédition.</p></div>
+    <div class="why-card"><div class="why-icon">🚚</div><h3>Livraison 10–15 jours</h3><p>Livraison entre 10 et 15 jours ouvrés après confirmation.</p></div>
+    <div class="why-card"><div class="why-icon">💬</div><h3>Conseil expert</h3><p>Notre équipe vous aide à trouver la bonne pièce.</p></div>
+    <div class="why-card"><div class="why-icon">💰</div><h3>Prix imbattables</h3><p>Meilleurs prix négociés directement avec les fournisseurs.</p></div>
+  </div>
+</div>
+
+<div class="section" id="section-contact" style="background:#fff;">
+  <div class="slabel">Parlons-nous</div>
+  <h2 class="stitle">Contactez Besschine Auto</h2>
+  <p class="ssub">Vous cherchez une pièce ? Contactez-nous directement.</p>
+  <div class="reveal">
+    <div class="contact-info">
+      <div class="cii"><div class="cico">📞</div><div><h4>Téléphone</h4><p>+225 05 94 11 19 35<br>Lun–Sam : 8h–18h</p></div></div>
+      <div class="cii"><div class="cico">📧</div><div><h4>Email</h4><p><a href="mailto:kokoraadouphanuel@gmail.com">kokoraadouphanuel@gmail.com</a></p></div></div>
+      <div class="cii"><div class="cico">📍</div><div><h4>Adresse</h4><p>Abidjan, Côte d'Ivoire</p></div></div>
+      <div class="cii"><div class="cico">🕐</div><div><h4>Horaires</h4><p>Lun–Ven : 8h–18h · Sam : 8h–14h</p></div></div>
+    </div>
+    <div class="contact-btns">
+      <a href="mailto:kokoraadouphanuel@gmail.com" class="cbtn cbtn-email">📧 Envoyer un email</a>
+      <a href="https://wa.me/2250594111935" target="_blank" class="cbtn cbtn-wa">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div><span class="flogo">Besschine <span>Auto</span></span><p>Votre spécialiste en pièces automobiles chinoises. Qualité et expertise au service des conducteurs.</p></div>
+    <div><h4>Navigation</h4><ul>
+      <li><a onclick="showPage('page-catalogue');initCatalogue()">Catalogue</a></li>
+      <li><a onclick="showPage('page-order-direct')">Commander</a></li>
+      <li><a onclick="scrollContact()">Contact</a></li>
+    </ul></div>
+    <div><h4>Contact</h4><ul>
+      <li><a>+225 05 94 11 19 35</a></li>
+      <li><a href="mailto:kokoraadouphanuel@gmail.com">kokoraadouphanuel@gmail.com</a></li>
+      <li><a>Abidjan, Côte d'Ivoire</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 <span>Besschine Auto</span>. Tous droits réservés.</p><p>Fait avec ❤️</p></div>
+</footer>
+</div>
+
+<!-- ══ CATALOGUE ══ -->
+<div id="page-catalogue" class="page">
+  <nav><div class="logo" onclick="showPage('page-home')">Besschine <span>Auto</span></div><div class="nav-links"><a onclick="showPage('page-home')">Accueil</a><a onclick="showPage('page-order-direct')" class="nav-order">📋 Commander</a><a onclick="showPage('page-login')" class="nav-admin">🔐 Admin</a></div></nav>
+  <div class="page-header"><button class="back-btn" onclick="showPage('page-home')">← Retour</button><h1>🛒 Catalogue</h1><p>Toutes nos pièces disponibles</p></div>
+  <div class="filters-bar" id="filtersBar">
+    <button class="filter-btn active" id="filterAll" onclick="filterCat('all',this)">Tout voir</button>
+    <div class="filter-search"><input type="text" id="searchInput" placeholder="🔍 Rechercher..." oninput="renderCatalogue()"/></div>
+  </div>
+  <div class="catalogue-body"><p class="catalogue-count">Affichage de <strong id="prodCount">0</strong> pièce(s)</p><div class="products-grid" id="productsGrid"></div></div>
+</div>
+
+<!-- ══ MARQUES ══ -->
+<div id="page-marques" class="page">
+  <nav><div class="logo" onclick="showPage('page-home')">Besschine <span>Auto</span></div><div class="nav-links"><a onclick="showPage('page-home')">Accueil</a><a onclick="showPage('page-order-direct')" class="nav-order">📋 Commander</a></div></nav>
+  <div class="page-header"><button class="back-btn" onclick="showPage('page-home')">← Retour</button><h1 id="marquesTitle">Choisissez votre marque</h1><p id="marquesSub">Sélectionnez la marque de votre véhicule</p></div>
+  <div class="brands-section"><div class="brands-cat-label" id="brandsCatLabel"></div><div class="brands-grid" id="brandsGrid"></div></div>
+</div>
+
+<!-- ══ COMMANDE DEPUIS MARQUE ══ -->
+<div id="page-order" class="page">
+  <nav><div class="logo" onclick="showPage('page-home')">Besschine <span>Auto</span></div><div class="nav-links"><a onclick="showPage('page-marques')">← Marques</a><a onclick="showPage('page-home')">Accueil</a></div></nav>
+  <div class="page-header"><button class="back-btn" onclick="showPage('page-marques')">← Retour aux marques</button><h1>📋 Passer une commande</h1><p>Remplissez le formulaire pour recevoir votre pièce</p></div>
+  <div class="order-container">
+    <div class="order-box">
+      <div id="orderBrandInfo" class="order-brand-info" style="display:none;"></div>
+      <div id="orderFormWrap">
+        <h2>Votre demande de pièce</h2>
+        <p class="osub">Remplissez tous les champs pour une réponse rapide.</p>
+        <div class="oform">
+          <div class="ofg-row">
+            <div class="ofg"><label>Modèle du véhicule *</label><input type="text" id="o-modele" placeholder="Ex: BYD Han EV"/></div>
+            <div class="ofg"><label>Année *</label><input type="number" id="o-annee" placeholder="Ex: 2022" min="1990" max="2030"/></div>
+          </div>
+          <div class="ofg other-brand-field" id="otherBrandField">
+            <label>Précisez votre marque *</label>
+            <input type="text" id="o-autreMarque" placeholder="Ex: Toyota, Peugeot..."/>
+          </div>
+          <div class="ofg"><label>Pièce recherchée *</label><input type="text" id="o-piece" placeholder="Ex: Plaquettes de frein avant"/></div>
+          <div class="ofg"><label>Votre nom *</label><input type="text" id="o-nom" placeholder="Ex: Jean Dupont"/></div>
+          <div class="ofg-row">
+            <div class="ofg"><label>Email</label><input type="email" id="o-email" placeholder="votre@email.com"/></div>
+            <div class="ofg"><label>Téléphone *</label><input type="tel" id="o-tel" placeholder="+225 XX XX XX XX XX"/></div>
+          </div>
+          <div class="ofg"><label>Informations complémentaires</label><textarea id="o-note" placeholder="Kilométrage, couleur, précisions..."></textarea></div>
+          <button class="submit-order" onclick="submitOrder()">✅ Envoyer ma commande</button>
+        </div>
+      </div>
+      <div class="order-success" id="orderSuccess">
+        <div class="big">🎉</div>
+        <h3>Commande enregistrée !</h3>
+        <p>Votre demande a bien été reçue. L'équipe Besschine Auto vous contactera très bientôt.</p>
+        <div class="steps-box">
+          <div class="step"><span>✅</span><span>Votre commande est enregistrée</span></div>
+          <div class="step"><span>📞</span><span>Nous vous contactons pour confirmer la disponibilité</span></div>
+          <div class="step"><span>🚚</span><span>Livraison entre 10 et 15 jours après confirmation</span></div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-p" onclick="showPage('page-home')">Retour à l'accueil</button>
+          <button class="btn-o" style="color:var(--bl);border-color:var(--bl);" onclick="resetOrderForm()">Nouvelle commande</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ COMMANDE DIRECTE ══ -->
+<div id="page-order-direct" class="page">
+  <nav><div class="logo" onclick="showPage('page-home')">Besschine <span>Auto</span></div><div class="nav-links"><a onclick="showPage('page-home')">Accueil</a><a onclick="showPage('page-catalogue');initCatalogue()">Catalogue</a></div></nav>
+  <div class="page-header"><button class="back-btn" onclick="showPage('page-home')">← Retour</button><h1>📋 Commander une pièce</h1><p>Remplissez le formulaire, nous trouvons votre pièce</p></div>
+  <div class="order-container">
+    <div class="order-box">
+      <div id="directFormWrap">
+        <h2>Votre demande de pièce</h2>
+        <p class="osub">Indiquez votre véhicule et la pièce recherchée.</p>
+        <div class="oform">
+          <div class="ofg-row">
+            <div class="ofg"><label>Marque *</label>
+              <select id="d-marque" onchange="toggleOtherDirect(this)">
+                <option value="">-- Sélectionner --</option>
+                <optgroup label="Marques chinoises">
+                  <option>BYD</option><option>Chery</option><option>Geely</option><option>Great Wall</option><option>Changan</option><option>JAC</option><option>SAIC</option><option>Dongfeng</option><option>FAW</option><option>NIO</option><option>Haval</option><option>MG</option><option>Xpeng</option><option>BAIC</option>
+                </optgroup>
+                <optgroup label="Autres marques">
+                  <option>Toyota</option><option>Honda</option><option>Nissan</option><option>Hyundai</option><option>Peugeot</option><option>Renault</option><option>Volkswagen</option><option>Ford</option><option value="Autre">Autre (préciser)</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="ofg"><label>Modèle</label><input type="text" id="d-modele" placeholder="Ex: Atto 3, CS55..."/></div>
+          </div>
+          <div class="ofg other-brand-field" id="otherBrandDirect">
+            <label>Précisez votre marque *</label>
+            <input type="text" id="d-autreMarque" placeholder="Ex: Lada, Dacia..."/>
+          </div>
+          <div class="ofg-row">
+            <div class="ofg"><label>Année</label><input type="number" id="d-annee" placeholder="Ex: 2022" min="1990" max="2030"/></div>
+            <div class="ofg"><label>Catégorie</label>
+              <select id="d-categorie">
+                <option value="">-- Sélectionner --</option>
+                <option>Moteur & Transmission</option><option>Freinage & Suspension</option><option>Électricité & Éclairage</option><option>Carrosserie</option><option>Climatisation</option><option>Entretien</option><option>Autre</option>
+              </select>
+            </div>
+          </div>
+          <div class="ofg"><label>Pièce recherchée *</label><input type="text" id="d-piece" placeholder="Ex: Plaquettes de frein avant..."/></div>
+          <div class="ofg"><label>Votre nom *</label><input type="text" id="d-nom" placeholder="Ex: Jean Dupont"/></div>
+          <div class="ofg-row">
+            <div class="ofg"><label>Email</label><input type="email" id="d-email" placeholder="votre@email.com"/></div>
+            <div class="ofg"><label>Téléphone *</label><input type="tel" id="d-tel" placeholder="+225 XX XX XX XX XX"/></div>
+          </div>
+          <div class="ofg"><label>Informations complémentaires</label><textarea id="d-note" placeholder="Kilométrage, précisions..."></textarea></div>
+          <button class="submit-order" onclick="submitDirectOrder()">✅ Envoyer ma commande</button>
+        </div>
+      </div>
+      <div class="order-success" id="directOrderSuccess">
+        <div class="big">🎉</div>
+        <h3>Commande enregistrée !</h3>
+        <p>Votre demande a bien été reçue. L'équipe Besschine Auto vous contactera très bientôt.</p>
+        <div class="steps-box">
+          <div class="step"><span>✅</span><span>Votre commande est enregistrée</span></div>
+          <div class="step"><span>📞</span><span>Nous vous contactons pour confirmer la disponibilité</span></div>
+          <div class="step"><span>🚚</span><span>Livraison entre 10 et 15 jours après confirmation</span></div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-p" onclick="showPage('page-home')">Retour à l'accueil</button>
+          <button class="btn-o" style="color:var(--bl);border-color:var(--bl);" onclick="resetDirectForm()">Nouvelle commande</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LOGIN ══ -->
+<div id="page-login" class="page">
+  <div class="login-box">
+    <span class="login-logo">Besschine <span>Auto</span></span>
+    <p class="lsub">Accès réservé – Administration</p>
+    <label>Mot de passe</label>
+    <input type="password" id="pwdInput" placeholder="••••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <p class="login-error" id="loginError">❌ Mot de passe incorrect</p>
+    <button onclick="doLogin()">Se connecter</button>
+    <br><br>
+    <button style="background:transparent;color:var(--tl);border:1px solid var(--g2);width:100%;padding:10px;border-radius:6px;cursor:pointer;font-family:'Poppins',sans-serif;" onclick="showPage('page-home')">← Retour au site</button>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<div id="page-admin" class="page">
+  <nav class="admin-nav">
+    <div class="logo">Besschine <span>Auto</span></div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="admin-badge">👤 Admin</span>
+      <button class="logout-btn" onclick="showPage('page-home')">Déconnexion</button>
+    </div>
+  </nav>
+  <div class="admin-body">
+    <div class="admin-title">Tableau de bord</div>
+    <div class="admin-sub">Gérez vos arrivages et consultez les commandes</div>
+    <div class="admin-stats">
+      <div class="astat"><div class="num" id="st-total">0</div><div class="lbl">Pièces total</div></div>
+      <div class="astat"><div class="num" id="st-new">0</div><div class="lbl">Nouveautés</div></div>
+      <div class="astat"><div class="num" id="st-orders">0</div><div class="lbl">Commandes</div></div>
+      <div class="astat"><div class="num red" id="st-pending">0</div><div class="lbl">En attente</div></div>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('tab-catalogue',this)">📦 Catalogue</button>
+      <button class="admin-tab" onclick="switchTab('tab-orders',this)">📋 Commandes <span class="tab-badge" id="pendingBadge" style="display:none;">0</span></button>
+    </div>
+    <div class="tab-panel active" id="tab-catalogue">
+      <div class="admin-grid">
+        <div class="acard">
+          <h2>➕ Ajouter un arrivage</h2>
+          <p class="asub">La pièce sera visible immédiatement dans le catalogue</p>
+          <div class="afg"><label>Nom de la pièce *</label><input type="text" id="a-nom" placeholder="Ex: Disque de frein BYD Atto 3"/></div>
+          <div class="afg-row">
+            <div class="afg"><label>Catégorie *</label>
+              <select id="a-cat">
+                <option value="Moteur">⚙️ Moteur & Transmission</option>
+                <option value="Freinage">🛞 Freinage & Suspension</option>
+                <option value="Électricité">💡 Électricité & Éclairage</option>
+                <option value="Carrosserie">🏎️ Carrosserie</option>
+                <option value="Climatisation">❄️ Climatisation</option>
+                <option value="Entretien">🔩 Entretien</option>
+              </select>
+            </div>
+            <div class="afg"><label>Prix (FCFA) *</label><input type="number" id="a-prix" placeholder="Ex: 35000"/></div>
+          </div>
+          <div class="afg"><label>Description *</label><textarea id="a-desc" placeholder="Compatible avec, garantie..."></textarea></div>
+          <div class="afg">
+            <label>Photo de la pièce</label>
+            <div class="photo-upload-zone" id="photoZone" onclick="document.getElementById('a-photo').click()">
+              <input type="file" id="a-photo" accept="image/*" onchange="previewPhoto(this)" style="display:none"/>
+              <div style="font-size:1.8rem;margin-bottom:6px;">📷</div>
+              <div style="font-size:0.78rem;color:var(--tl);font-weight:600;">Cliquez pour ajouter une photo</div>
+              <div style="font-size:0.7rem;color:#aaa;margin-top:2px;">JPG, PNG – max 5 Mo</div>
+            </div>
+            <div class="photo-preview" id="photoPreview">
+              <img id="photoPreviewImg" src="" alt="Aperçu"/>
+              <button class="rm-photo" onclick="removePhoto(event)" title="Supprimer">✕</button>
+            </div>
+          </div>
+          <div class="afg" style="display:flex;align-items:center;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="a-new" style="width:15px;height:15px;"/> Marquer comme NOUVEAU</label>
+          </div>
+          <button class="abtn" onclick="addProduct()">Publier dans le catalogue</button>
+          <div class="asuccess" id="addSuccess">✅ Pièce ajoutée avec succès !</div>
+        </div>
+        <div class="acard">
+          <h2>📦 Catalogue actuel</h2>
+          <p class="asub">Cliquez 🗑️ pour supprimer une pièce</p>
+          <div style="overflow-x:auto;"><table class="atable"><thead><tr><th>Pièce</th><th>Catégorie</th><th>Prix</th><th></th></tr></thead><tbody id="adminTbody"><tr><td colspan="4" class="empty-t">Aucune pièce ajoutée</td></tr></tbody></table></div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-orders">
+      <div class="acard">
+        <div class="orders-toolbar">
+          <h2>📋 Commandes reçues</h2>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <div class="ofilters">
+              <button class="ofilter active" onclick="filterOrders('all',this)">Toutes</button>
+              <button class="ofilter" onclick="filterOrders('new',this)">⏳ En attente</button>
+              <button class="ofilter" onclick="filterOrders('done',this)">✅ Traitées</button>
+            </div>
+            <button class="clr-btn" onclick="clearAllOrders()">🗑️ Tout effacer</button>
+          </div>
+        </div>
+        <div class="orders-list" id="ordersList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var PASS = 'bess-13082007';
+var products = JSON.parse(localStorage.getItem('besschine_v1') || '[]');
+var orders = JSON.parse(localStorage.getItem('besschine_orders') || '[]');
+var currentCatFilter = 'all';
+var selectedBrand = null;
+var selectedCategory = null;
+var ordersFilter = 'all';
+var currentPhotoBase64 = '';
+
+var CATS = [
+  {id:'Moteur', label:'Moteur & Transmission', icon:'⚙️', desc:'Pistons, courroies, embrayages, boîtes de vitesse'},
+  {id:'Freinage', label:'Freinage & Suspension', icon:'🛞', desc:'Plaquettes, disques, amortisseurs, rotules'},
+  {id:'Electricite', label:'Électricité & Éclairage', icon:'💡', desc:'Alternateurs, phares, capteurs, démarreurs'},
+  {id:'Carrosserie', label:'Carrosserie', icon:'🏎️', desc:'Pare-chocs, ailes, capots, vitres'},
+  {id:'Climatisation', label:'Climatisation', icon:'❄️', desc:'Compresseurs, condenseurs, filtres habitacle'},
+  {id:'Entretien', label:'Entretien', icon:'🔩', desc:'Filtres, huiles, bougies, liquides'},
+];
+
+var BRANDS_DATA = {
+  'Moteur': ['BYD','Chery','Geely','Great Wall','Changan','JAC','SAIC','Dongfeng','FAW','NIO','Haval','MG'],
+  'Freinage': ['BYD','Chery','Geely','Haval','MG','JAC','Changan','Great Wall','SAIC','Dongfeng'],
+  'Electricite': ['BYD','NIO','Xpeng','Chery','Geely','SAIC','Changan','BAIC','Great Wall','JAC'],
+  'Carrosserie': ['BYD','Chery','Geely','Great Wall','MG','JAC','Changan','Dongfeng','SAIC','FAW'],
+  'Climatisation': ['BYD','Chery','Geely','Haval','MG','Changan','JAC','NIO','Great Wall','BAIC'],
+  'Entretien': ['BYD','Chery','Geely','Great Wall','Changan','Haval','MG','JAC','SAIC','Dongfeng','FAW'],
+};
+
+var BRAND_MODELS = {
+  'BYD':'Han, Atto 3, Tang, Seal, Dolphin',
+  'Chery':'Tiggo 7, Tiggo 8, Arrizo 5',
+  'Geely':'Coolray, Azkarra, Emgrand',
+  'Great Wall':'H6, Jolion, Poer, H9',
+  'Changan':'CS35, CS55, CS75, Uni-T',
+  'JAC':'S2, S3, S4, T6, T8',
+  'SAIC':'Roewe, MG, Wuling',
+  'Dongfeng':'AX7, S560, Glory 500',
+  'FAW':'Bestune T77, B70, Vita',
+  'NIO':'ES6, ES8, ET5, ET7',
+  'Haval':'H6, H2, F7, Jolion',
+  'MG':'ZS, HS, RX5, MG5, MG6',
+  'Xpeng':'P7, G3, G9, P5',
+  'BAIC':'EU5, EC3, EX3, X35',
+};
+
+var BRAND_COLORS = {
+  'BYD':'#0055cc','Chery':'#cc0000','Geely':'#1a44cc','Great Wall':'#555555',
+  'Changan':'#002299','JAC':'#222222','SAIC':'#2244ee','Dongfeng':'#cc1111',
+  'FAW':'#1a44aa','NIO':'#111111','Haval':'#666666','MG':'#cc2222',
+  'Xpeng':'#0a0a1e','BAIC':'#003399',
+};
+
+var CAT_EMOJIS = {
+  'Moteur':'⚙️','Freinage':'🛞','Electricite':'💡','Carrosserie':'🏎️','Climatisation':'❄️','Entretien':'🔩',
+  'Moteur & Transmission':'⚙️','Freinage & Suspension':'🛞','Électricité & Éclairage':'💡',
+};
+
+function saveProducts(){ localStorage.setItem('besschine_v1', JSON.stringify(products)); }
+function saveOrders(){ localStorage.setItem('besschine_orders', JSON.stringify(orders)); }
+
+// NAVIGATION
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function scrollContact(){
+  showPage('page-home');
+  setTimeout(function(){ document.getElementById('section-contact').scrollIntoView({behavior:'smooth'}); }, 120);
+}
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// HOME - catégories
+function initHome(){
+  var grid = document.getElementById('homeCatsGrid');
+  grid.innerHTML = '';
+  CATS.forEach(function(c){
+    var card = document.createElement('div');
+    card.className = 'cat-card';
+    card.setAttribute('data-catid', c.id);
+    card.onclick = function(){ goToMarques(this.getAttribute('data-catid')); };
+    var icon = document.createElement('div'); icon.className = 'cat-icon'; icon.textContent = c.icon;
+    var h3 = document.createElement('h3'); h3.textContent = c.label;
+    var p = document.createElement('p'); p.textContent = c.desc;
+    var lnk = document.createElement('div'); lnk.className = 'cat-link'; lnk.textContent = 'Voir les marques →';
+    card.appendChild(icon); card.appendChild(h3); card.appendChild(p); card.appendChild(lnk);
+    grid.appendChild(card);
+  });
+}
+
+// MARQUES
+function goToMarques(catId){
+  selectedCategory = catId;
+  var cat = null;
+  for(var i=0;i<CATS.length;i++){ if(CATS[i].id===catId){ cat=CATS[i]; break; } }
+  if(!cat) return;
+  document.getElementById('marquesTitle').textContent = cat.icon + ' ' + cat.label;
+  document.getElementById('marquesSub').textContent = 'Sélectionnez la marque de votre véhicule';
+  document.getElementById('brandsCatLabel').textContent = 'Marques disponibles – ' + cat.label;
+
+  var brandNames = BRANDS_DATA[catId] || [];
+  var grid = document.getElementById('brandsGrid');
+  grid.innerHTML = '';
+
+  brandNames.forEach(function(name){
+    var card = document.createElement('div');
+    card.className = 'brand-card';
+    card.setAttribute('data-name', name);
+    card.setAttribute('data-models', BRAND_MODELS[name] || '');
+    card.setAttribute('data-other', '0');
+    card.onclick = function(){ goToOrder(this); };
+
+    var badge = document.createElement('div');
+    badge.className = 'brand-badge';
+    badge.style.background = BRAND_COLORS[name] || '#1a3a6b';
+    badge.textContent = name.slice(0,3).toUpperCase();
+
+    var h3 = document.createElement('h3'); h3.textContent = name;
+    var p = document.createElement('p'); p.textContent = BRAND_MODELS[name] || '';
+    var lbl = document.createElement('div'); lbl.className = 'brand-select-lbl'; lbl.textContent = 'Sélectionner →';
+
+    card.appendChild(badge); card.appendChild(h3); card.appendChild(p); card.appendChild(lbl);
+    grid.appendChild(card);
+  });
+
+  // Autre marque
+  var other = document.createElement('div');
+  other.className = 'brand-card brand-other';
+  other.setAttribute('data-name', 'Autre marque');
+  other.setAttribute('data-models', '');
+  other.setAttribute('data-other', '1');
+  other.onclick = function(){ goToOrder(this); };
+  var ob = document.createElement('div'); ob.className = 'brand-badge'; ob.style.background='#e8f0fc'; ob.style.color='#1a3a6b'; ob.style.fontSize='1.5rem'; ob.textContent='🔧';
+  var oh3 = document.createElement('h3'); oh3.textContent = 'Autre marque';
+  var op = document.createElement('p'); op.textContent = 'Marque non listée';
+  var olbl = document.createElement('div'); olbl.className = 'brand-select-lbl'; olbl.textContent = 'Saisir ma marque →';
+  other.appendChild(ob); other.appendChild(oh3); other.appendChild(op); other.appendChild(olbl);
+  grid.appendChild(other);
+
+  showPage('page-marques');
+}
+
+// COMMANDE DEPUIS MARQUE
+function goToOrder(el){
+  var name = el.getAttribute('data-name');
+  var models = el.getAttribute('data-models');
+  var isOther = el.getAttribute('data-other') === '1';
+  selectedBrand = {name:name, models:models, isOther:isOther};
+  var cat = null;
+  for(var i=0;i<CATS.length;i++){ if(CATS[i].id===selectedCategory){ cat=CATS[i]; break; } }
+  var info = document.getElementById('orderBrandInfo');
+  if(isOther){
+    info.style.display = 'none';
+    document.getElementById('otherBrandField').classList.add('visible');
+  } else {
+    info.style.display = 'flex';
+    info.innerHTML = '';
+    var ico = document.createElement('div'); ico.className = 'obi-ico';
+    var badge = document.createElement('div');
+    badge.style.cssText = 'width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:Exo 2,sans-serif;font-size:0.8rem;font-weight:900;color:#fff;background:' + (BRAND_COLORS[name]||'#1a3a6b');
+    badge.textContent = name.slice(0,3).toUpperCase();
+    ico.appendChild(badge);
+    var inf = document.createElement('div'); inf.className = 'obi-info';
+    var strong = document.createElement('strong'); strong.textContent = name;
+    var span = document.createElement('span'); span.textContent = models + (cat ? ' · ' + cat.label : '');
+    inf.appendChild(strong); inf.appendChild(span);
+    info.appendChild(ico); info.appendChild(inf);
+    document.getElementById('otherBrandField').classList.remove('visible');
+  }
+  document.getElementById('orderFormWrap').style.display = 'block';
+  document.getElementById('orderSuccess').style.display = 'none';
+  showPage('page-order');
+}
+
+function submitOrder(){
+  var modele = document.getElementById('o-modele').value.trim();
+  var annee = document.getElementById('o-annee').value.trim();
+  var piece = document.getElementById('o-piece').value.trim();
+  var nom = document.getElementById('o-nom').value.trim();
+  var email = document.getElementById('o-email').value.trim();
+  var tel = document.getElementById('o-tel').value.trim();
+  var note = document.getElementById('o-note').value.trim();
+  var autreMarque = document.getElementById('o-autreMarque').value.trim();
+  if(!modele||!piece||!nom||!tel){ alert('Veuillez remplir les champs obligatoires (*)'); return; }
+  var marque = selectedBrand && selectedBrand.isOther ? (autreMarque || 'Autre') : (selectedBrand ? selectedBrand.name : '');
+  var cat = null;
+  for(var i=0;i<CATS.length;i++){ if(CATS[i].id===selectedCategory){ cat=CATS[i]; break; } }
+  var order = {id:Date.now(), date:new Date().toLocaleString('fr-FR'), marque:marque, categorie:cat?cat.label:'', modele:modele, annee:annee, piece:piece, nom:nom, email:email, tel:tel, note:note, status:'new'};
+  orders.unshift(order); saveOrders(); updateAdminBadge();
+  document.getElementById('orderFormWrap').style.display = 'none';
+  document.getElementById('orderSuccess').style.display = 'block';
+}
+
+function resetOrderForm(){
+  document.getElementById('orderFormWrap').style.display = 'block';
+  document.getElementById('orderSuccess').style.display = 'none';
+  ['o-modele','o-annee','o-piece','o-nom','o-email','o-tel','o-note','o-autreMarque'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+}
+
+// COMMANDE DIRECTE
+function toggleOtherDirect(sel){
+  var f = document.getElementById('otherBrandDirect');
+  if(sel.value === 'Autre') f.classList.add('visible');
+  else f.classList.remove('visible');
+}
+
+function submitDirectOrder(){
+  var marque = document.getElementById('d-marque').value.trim();
+  var modele = document.getElementById('d-modele').value.trim();
+  var annee = document.getElementById('d-annee').value.trim();
+  var cat = document.getElementById('d-categorie').value.trim();
+  var piece = document.getElementById('d-piece').value.trim();
+  var nom = document.getElementById('d-nom').value.trim();
+  var email = document.getElementById('d-email').value.trim();
+  var tel = document.getElementById('d-tel').value.trim();
+  var note = document.getElementById('d-note').value.trim();
+  var autre = document.getElementById('d-autreMarque').value.trim();
+  if(!nom||!tel||!piece){ alert('Veuillez remplir au minimum : nom, téléphone et pièce'); return; }
+  var marqueFinale = marque === 'Autre' ? (autre || 'Autre') : marque;
+  var order = {id:Date.now(), date:new Date().toLocaleString('fr-FR'), marque:marqueFinale, categorie:cat, modele:modele, annee:annee, piece:piece, nom:nom, email:email, tel:tel, note:note, status:'new'};
+  orders.unshift(order); saveOrders(); updateAdminBadge();
+  document.getElementById('directFormWrap').style.display = 'none';
+  document.getElementById('directOrderSuccess').style.display = 'block';
+}
+
+function resetDirectForm(){
+  document.getElementById('directFormWrap').style.display = 'block';
+  document.getElementById('directOrderSuccess').style.display = 'none';
+  ['d-modele','d-annee','d-piece','d-nom','d-email','d-tel','d-note','d-autreMarque'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('d-marque').value = '';
+  document.getElementById('d-categorie').value = '';
+}
+
+// CATALOGUE
+function initCatalogue(){ buildFilters(); renderCatalogue(); }
+
+function buildFilters(){
+  var cats = {};
+  products.forEach(function(p){ cats[p.cat] = true; });
+  var bar = document.getElementById('filtersBar');
+  var search = bar.querySelector('.filter-search');
+  bar.innerHTML = '';
+  var allBtn = document.createElement('button');
+  allBtn.className = 'filter-btn' + (currentCatFilter==='all'?' active':'');
+  allBtn.textContent = 'Tout voir';
+  allBtn.onclick = function(){ currentCatFilter='all'; bar.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');}); allBtn.classList.add('active'); renderCatalogue(); };
+  bar.appendChild(allBtn);
+  Object.keys(cats).forEach(function(c){
+    var btn = document.createElement('button');
+    btn.className = 'filter-btn' + (currentCatFilter===c?' active':'');
+    btn.textContent = (CAT_EMOJIS[c]||'') + ' ' + c;
+    btn.onclick = function(){ currentCatFilter=c; bar.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active'); renderCatalogue(); };
+    bar.appendChild(btn);
+  });
+  bar.appendChild(search);
+}
+
+function filterCat(cat, el){ currentCatFilter=cat; document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');}); if(el)el.classList.add('active'); renderCatalogue(); }
+
+function renderCatalogue(){
+  var q = (document.getElementById('searchInput')||{value:''}).value.toLowerCase();
+  var filtered = products.filter(function(p){
+    var mc = currentCatFilter==='all' || p.cat===currentCatFilter;
+    var ms = p.nom.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q);
+    return mc && ms;
+  });
+  var grid = document.getElementById('productsGrid');
+  document.getElementById('prodCount').textContent = filtered.length;
+  if(!filtered.length){
+    grid.innerHTML = '<div class="no-results"><div class="big">🔍</div><p>Aucune pièce trouvée. <button style="background:none;border:none;color:var(--bl);font-weight:700;cursor:pointer;" onclick="showPage(\'page-order-direct\')">Commandez directement</button></p></div>';
+    return;
+  }
+  var html = '';
+  filtered.forEach(function(p){
+    var price = Number(p.prix).toLocaleString('fr-FR');
+    var newBadge = p.isNew ? '<span class="badge-new">NOUVEAU</span>' : '';
+    var emoji = p.emoji || CAT_EMOJIS[p.cat] || '🔧';
+    var imgHtml = p.photo ? '<img src="' + p.photo + '" alt="' + p.nom + '"/>' : emoji;
+    var safeName = p.nom.replace(/"/g,'&quot;');
+    html += '<div class="product-card">';
+    html += '<div class="product-img">' + imgHtml + '</div>';
+    html += '<div class="product-body">';
+    html += '<div class="product-cat">' + p.cat + newBadge + '</div>';
+    html += '<h3>' + p.nom + '</h3>';
+    html += '<p>' + p.desc + '</p>';
+    html += '<div class="product-footer">';
+    html += '<div class="product-price">' + price + ' FCFA</div>';
+    html += '<button class="product-btn" data-nom="' + safeName + '" data-cat="' + p.cat + '" onclick="orderFromBtn(this)">Commander</button>';
+    html += '</div></div></div>';
+  });
+  grid.innerHTML = html;
+}
+
+function orderFromBtn(btn){
+  document.getElementById('d-piece').value = btn.getAttribute('data-nom');
+  document.getElementById('d-categorie').value = btn.getAttribute('data-cat');
+  document.getElementById('directFormWrap').style.display = 'block';
+  document.getElementById('directOrderSuccess').style.display = 'none';
+  showPage('page-order-direct');
+}
+
+// AUTH
+function doLogin(){
+  if(document.getElementById('pwdInput').value === PASS){
+    showPage('page-admin'); renderAdminTable(); renderOrders(); updateStats();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+// ADMIN ONGLETS
+function switchTab(tabId, btn){
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.admin-tab').forEach(function(b){b.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+  if(tabId==='tab-orders') renderOrders();
+}
+
+// PHOTO
+function previewPhoto(input){
+  if(!input.files||!input.files[0]) return;
+  var file = input.files[0];
+  if(file.size > 5*1024*1024){ alert('Image trop lourde (max 5 Mo)'); input.value=''; return; }
+  var reader = new FileReader();
+  reader.onload = function(e){
+    currentPhotoBase64 = e.target.result;
+    document.getElementById('photoPreviewImg').src = e.target.result;
+    document.getElementById('photoPreview').style.display = 'block';
+    document.getElementById('photoZone').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+function removePhoto(e){
+  e.stopPropagation();
+  currentPhotoBase64 = '';
+  document.getElementById('photoPreview').style.display = 'none';
+  document.getElementById('photoZone').style.display = 'block';
+  document.getElementById('a-photo').value = '';
+}
+
+// ADMIN CATALOGUE
+function addProduct(){
+  var nom = document.getElementById('a-nom').value.trim();
+  var cat = document.getElementById('a-cat').value;
+  var prix = document.getElementById('a-prix').value.trim();
+  var desc = document.getElementById('a-desc').value.trim();
+  var isNew = document.getElementById('a-new').checked;
+  if(!nom||!prix||!desc){ alert('Remplissez les champs obligatoires (*)'); return; }
+  products.unshift({id:Date.now(), nom:nom, cat:cat, prix:prix, desc:desc, photo:currentPhotoBase64, isNew:isNew, date:new Date().toLocaleDateString('fr-FR')});
+  saveProducts(); renderAdminTable(); updateStats();
+  document.getElementById('a-nom').value=''; document.getElementById('a-prix').value=''; document.getElementById('a-desc').value='';
+  document.getElementById('a-new').checked=false; removePhoto({stopPropagation:function(){}});
+  var s=document.getElementById('addSuccess'); s.style.display='block'; setTimeout(function(){s.style.display='none';},3000);
+}
+
+function deleteProduct(id){
+  id = Number(id);
+  if(!confirm('Supprimer cette pièce ?')) return;
+  products = products.filter(function(p){return p.id!==id;});
+  saveProducts(); renderAdminTable(); updateStats();
+}
+
+function renderAdminTable(){
+  var tb = document.getElementById('adminTbody');
+  if(!products.length){ tb.innerHTML='<tr><td colspan="4" class="empty-t">Aucune pièce ajoutée</td></tr>'; return; }
+  var rows = '';
+  products.forEach(function(p){
+    var price = Number(p.prix).toLocaleString('fr-FR');
+    var emoji = CAT_EMOJIS[p.cat] || '🔧';
+    var newBadge = p.isNew ? '<span style="font-size:0.6rem;background:#e74c3c;color:#fff;padding:2px 6px;border-radius:2px;margin-left:4px;">NEW</span>' : '';
+    var imgContent = p.photo ? '<img src="' + p.photo + '" style="width:44px;height:44px;object-fit:cover;border-radius:6px;">' : '<div style="width:44px;height:44px;background:var(--bvp);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">' + emoji + '</div>';
+    rows += '<tr><td><div style="display:flex;align-items:center;gap:10px;">' + imgContent + '<div><strong>' + p.nom + '</strong><br><span style="font-size:0.7rem;color:var(--tl);">' + p.date + '</span></div></div></td>';
+    rows += '<td><span class="tcat">' + p.cat + '</span>' + newBadge + '</td>';
+    rows += '<td class="tprice">' + price + '</td>';
+    rows += '<td><button class="tdel" onclick="deleteProduct(' + p.id + ')">🗑️</button></td></tr>';
+  });
+  tb.innerHTML = rows;
+}
+
+// ADMIN COMMANDES
+function filterOrders(f, el){
+  ordersFilter = f;
+  document.querySelectorAll('.ofilter').forEach(function(b){b.classList.remove('active');});
+  if(el) el.classList.add('active');
+  renderOrders();
+}
+
+function renderOrders(){
+  var list = document.getElementById('ordersList');
+  var filtered = orders;
+  if(ordersFilter==='new') filtered = orders.filter(function(o){return o.status==='new';});
+  if(ordersFilter==='done') filtered = orders.filter(function(o){return o.status==='done';});
+  if(!filtered.length){ list.innerHTML='<div class="no-orders"><div style="font-size:2.5rem;margin-bottom:8px;">📭</div><p style="font-weight:700;color:var(--tx);">Aucune commande</p><p style="font-size:0.83rem;">Les commandes apparaîtront ici.</p></div>'; return; }
+  var html = '';
+  filtered.forEach(function(o){
+    var sCls = o.status==='new' ? 's-new' : 's-done';
+    var sTxt = o.status==='new' ? '⏳ En attente' : '✅ Traitée';
+    var treatTxt = o.status==='new' ? '✅ Marquer traitée' : '↩️ En attente';
+    html += '<div class="order-card">';
+    html += '<div class="oc-head"><span class="oc-id">🧾 #' + String(o.id).slice(-6) + '</span><span class="oc-date">📅 ' + o.date + '</span><span class="oc-status ' + sCls + '">' + sTxt + '</span></div>';
+    html += '<div class="oc-body">';
+    html += '<div class="ocf"><div class="lbl">Client</div><div class="val">👤 ' + o.nom + '</div></div>';
+    html += '<div class="ocf"><div class="lbl">Téléphone</div><div class="val">📞 ' + o.tel + '</div></div>';
+    html += '<div class="ocf"><div class="lbl">Email</div><div class="val">📧 ' + (o.email||'—') + '</div></div>';
+    html += '<div class="ocf"><div class="lbl">Marque</div><div class="val">🚗 ' + (o.marque||'—') + '</div></div>';
+    html += '<div class="ocf"><div class="lbl">Modèle/Année</div><div class="val">' + (o.modele||'—') + (o.annee?' ('+o.annee+')':'') + '</div></div>';
+    html += '<div class="ocf"><div class="lbl">Catégorie</div><div class="val">' + (o.categorie||'—') + '</div></div>';
+    html += '<div class="ocf" style="grid-column:1/-1"><div class="lbl">Pièce recherchée</div><div class="val" style="font-weight:700;color:var(--b);">🔧 ' + o.piece + '</div></div>';
+    if(o.note) html += '<div class="ocf" style="grid-column:1/-1"><div class="lbl">Notes</div><div class="val" style="font-style:italic;">' + o.note + '</div></div>';
+    html += '</div>';
+    html += '<div class="oc-foot"><button class="btn-treat" onclick="toggleOrderStatus(' + o.id + ')">' + treatTxt + '</button><button class="btn-del-o" onclick="deleteOrder(' + o.id + ')">🗑️ Supprimer</button></div>';
+    html += '</div>';
+  });
+  list.innerHTML = html;
+}
+
+function toggleOrderStatus(id){
+  var o = orders.find(function(x){return x.id===id;});
+  if(o){ o.status = o.status==='new'?'done':'new'; saveOrders(); renderOrders(); updateStats(); updateAdminBadge(); }
+}
+function deleteOrder(id){
+  if(!confirm('Supprimer cette commande ?')) return;
+  orders = orders.filter(function(o){return o.id!==id;});
+  saveOrders(); renderOrders(); updateStats(); updateAdminBadge();
+}
+function clearAllOrders(){
+  if(!confirm('Effacer TOUTES les commandes ?')) return;
+  orders = []; saveOrders(); renderOrders(); updateStats(); updateAdminBadge();
+}
+
+function updateAdminBadge(){
+  var pending = orders.filter(function(o){return o.status==='new';}).length;
+  var badge = document.getElementById('pendingBadge');
+  if(badge){ badge.textContent=pending; badge.style.display=pending>0?'inline':'none'; }
+}
+
+function updateStats(){
+  document.getElementById('st-total').textContent = products.length;
+  document.getElementById('st-new').textContent = products.filter(function(p){return p.isNew;}).length;
+  document.getElementById('st-orders').textContent = orders.length;
+  var pending = orders.filter(function(o){return o.status==='new';}).length;
+  document.getElementById('st-pending').textContent = pending;
+  updateAdminBadge();
+}
+
+// REVEAL SCROLL
+var obs = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); }); },{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(function(r){obs.observe(r);});
+
+// INIT
+initHome();
+updateAdminBadge();
+</script>
+</body>
+</html>
+ENDOFFILE
